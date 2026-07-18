@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="figures/workshop_cover.png" width="900">
+  <img src="figures/portada_taller.png" width="900">
 </p>
 
 # CLASS_Free_ulSFDM-workshop
