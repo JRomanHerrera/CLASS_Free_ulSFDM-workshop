@@ -61,7 +61,7 @@ conda env create -f environment.yml
 Una vez finalizada la instalación activa el ambiente
 
 ```bash
-conda activate ulsfdm
+conda activate class-ulsfdm
 ```
 
 Verifica que Python corresponde al ambiente recién creado
@@ -70,56 +70,113 @@ Verifica que Python corresponde al ambiente recién creado
 python --version
 ```
 
+La salida debe ser similar a:
+
+```text
+Python 3.11.x
+```
+
+También puedes comprobar que se está utilizando el Python del ambiente de Conda:
+
+```bash
+which python
+```
+
+La salida debe ser similar a:
+
+```text
+.../miniconda3/envs/class-ulsfdm/bin/python
+```
+
+Si ambas comprobaciones son correctas, puedes continuar con la descarga de **CLASS-ulSFDM**.
+
 ---
 
 # 3. Descargar CLASS-ulSFDM
 
-Clona el repositorio del código fuente
+Clona el repositorio del código fuente:
 
 ```bash
 git clone https://github.com/JRomanHerrera/class_publicSFDM.git
 ```
 
-Entra al directorio
+Entra al directorio:
 
 ```bash
 cd class_publicSFDM
 ```
 
 ---
+# 4. Configurar el Makefile
 
-# 4. Compilar CLASS
+Antes de compilar CLASS-ulSFDM, verifica qué compiladores de C y C++ están disponibles en tu sistema.
 
 ## macOS
 
+Comprueba las versiones de `clang` y `clang++`:
+
 ```bash
-make clean
-make CC=clang CXX=clang++
+clang --version
+clang++ --version
 ```
 
-## Linux
+Si ambos comandos muestran correctamente la información de los compiladores, abre el archivo `Makefile`. Localiza las líneas correspondientes a los compiladores:
 
-```bash
-make clean
-make CC=gcc CXX=g++
+```make
+# your C compiler:
+CC       = clang
+#CC       = icc
+#CC       = pgcc
+
+CPP      = clang++ --std=c++11 -fpermissive -Wno-write-strings
 ```
 
-## Windows (WSL2)
+Verifica que queden exactamente de esta forma:
 
-Dentro de Ubuntu ejecute exactamente el mismo procedimiento que en Linux
+```make
+CC       = clang
+CPP      = clang++ --std=c++11 -fpermissive -Wno-write-strings
+```
+
+Guarda los cambios y cierra el editor.
+
+---
+
+## Linux / Windows (WSL2)
+
+Comprueba las versiones de `gcc` y `g++`:
+
+```bash
+gcc --version
+g++ --version
+```
+
+Si ambos comandos muestran correctamente la información de los compiladores, abre el archivo `Makefile`. Localiza las líneas correspondientes a los compiladores y modifícalas para que queden así:
+
+```make
+CC       = gcc
+CPP      = g++ --std=c++11 -fpermissive -Wno-write-strings
+```
+
+Guarda los cambios y cierra el editor.
+
+Una vez configurado el `Makefile`, puedes continuar con la compilación de CLASS-ulSFDM.
+
+---
+# 5. Compilar CLASS
 
 ```bash
 make clean
-make CC=gcc CXX=g++
+make 
 ```
 
 Al finalizar deberá generarse correctamente la biblioteca de CLASS y el módulo de Python `classy`.
 
 ---
 
-# 5. Verificar la instalación
+# 6. Verificar la instalación
 
-Ejecute el archivo de ejemplo
+Ejecute el archivo de ejemplo incluido en el repositorio:
 
 ```bash
 ./class sfdm.ini
@@ -127,7 +184,27 @@ Ejecute el archivo de ejemplo
 
 Si la instalación fue correcta, CLASS calculará la evolución cosmológica sin mostrar errores.
 
-También puede comprobar que Python encuentra correctamente el módulo `classy`
+También puedes verificar que el módulo de Python `classy` fue compilado correctamente ejecutando:
+
+```bash
+find python/build -maxdepth 1 -type d -name "lib.*"
+```
+
+La salida debe ser similar a:
+
+```text
+python/build/lib.macosx-15.0-arm64-cpython-311
+```
+
+o
+
+```text
+python/build/lib.linux-x86_64-cpython-311
+```
+
+dependiendo del sistema operativo.
+
+Nota: No es necesario, pero puedes comprobar que Python encuentra correctamente el módulo `classy`
 
 ```bash
 python -c "from classy import Class; print('CLASS instalado correctamente.')"
@@ -135,7 +212,7 @@ python -c "from classy import Class; print('CLASS instalado correctamente.')"
 
 ---
 
-# 6. Iniciar Jupyter
+# 7. Iniciar Jupyter
 
 Regrese a la carpeta del taller y ejecute
 
@@ -153,7 +230,7 @@ Se abrirá automáticamente el navegador.
 
 ---
 
-# 7. Abrir los notebooks
+# 8. Abrir los notebooks
 
 Dentro de Jupyter abra la carpeta
 
@@ -169,13 +246,28 @@ Se recomienda ejecutarlos secuencialmente.
 
 # Contenido del taller
 
-Los notebooks muestran cómo utilizar CLASS-ulSFDM para calcular diferentes observables cosmológicos, entre ellos
+Los notebooks están organizados para introducir progresivamente el uso de **CLASS-ulSFDM**, desde la instalación y las primeras simulaciones hasta el cálculo de observables cosmológicos.
 
+El contenido incluye:
+
+## Introducción
+
+- Introducción a CLASS y `classy`.
+- Primera simulación con ΛCDM.
+- Primeras gráficas cosmológicas.
+
+## Modelo ulSFDM
+
+- Estructura del archivo `sfdm.ini`.
 - Evolución del fondo cosmológico.
+- Condiciones iniciales.
 - Evolución de perturbaciones lineales.
+
+## Observables cosmológicos
+
 - Espectro de potencia de materia.
-- Anisotropías de temperatura del Fondo Cósmico de Microondas (CMB).
-- Comparación entre ΛCDM y materia oscura escalar ultraligera.
+- Anisotropías del CMB.
+- Comparación entre ΛCDM y ulSFDM.
 
 ---
 
