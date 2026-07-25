@@ -139,20 +139,29 @@ cd class_publicSFDM
 ```
 
 ---
-# 5. Configurar los compiladores
+# 5. Verificar el compilador y el Makefile
 
-CLASS-ulSFDM debe compilarse con un compilador de C/C++ compatible con tu sistema operativo. En este paso verificaremos qué compiladores están disponibles y configuraremos el `Makefile` para utilizarlos.
+Antes de compilar **CLASS-ulSFDM**, verifica que el compilador de C/C++ configurado en el `Makefile` sea compatible con tu sistema operativo.
+
+Estas instrucciones fueron verificadas en:
+
+- **macOS** (M2).
+- **Windows 11** utilizando **WSL2 (Ubuntu)**.
+
+En otras distribuciones de Linux o configuraciones diferentes, las opciones del compilador pueden variar ligeramente.
+
+---
 
 ## macOS
 
-Comprueba que `clang` y `clang++` están instalados:
+Comprueba que `clang` y `clang++` estén disponibles:
 
 ```bash
 clang --version
 clang++ --version
 ```
 
-Abre el archivo `Makefile` y verifica que las siguientes líneas sean exactamente:
+Abre el archivo `Makefile` y verifica que las siguientes líneas sean:
 
 ```make
 CC       = clang
@@ -163,7 +172,6 @@ OPTFLAG = -O3
 OMPFLAG = -pthread
 ```
 
-Si son diferentes, modifícalas, guarda los cambios y cierra el editor.
 
 ---
 
@@ -176,7 +184,7 @@ gcc --version
 g++ --version
 ```
 
-Abre el archivo `Makefile` y verifica que las siguientes líneas sean exactamente:
+Abre el archivo `Makefile` y verifica que las siguientes líneas sean:
 
 ```make
 CC       = gcc
@@ -187,9 +195,17 @@ OPTFLAG = -O3 -fcommon
 OMPFLAG = -fopenmp
 ```
 
-Si son diferentes, modifícalas, guarda los cambios y cierra el editor.
+---
 
-Si los compiladores fueron detectados correctamente y el `Makefile` quedó configurado, puedes continuar con la compilación de CLASS-ulSFDM.
+> **Nota**
+>
+> Si alguno de los comandos `clang --version`, `clang++ --version`, `gcc --version` o `g++ --version` devuelve un mensaje como `command not found`, primero deberás instalar las herramientas de desarrollo correspondientes antes de continuar.
+
+---
+
+## Verificación
+
+Si los comandos anteriores muestran correctamente la versión del compilador y el `Makefile` quedó configurado como se indicó, puedes continuar con la compilación de **CLASS-ulSFDM**.
 
 ---
 # 6. Compilar CLASS-ulSFDM
