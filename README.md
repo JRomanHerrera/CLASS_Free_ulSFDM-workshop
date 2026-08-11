@@ -55,9 +55,11 @@ conda --version
 ```
 ---
 
-# 2. Crear un directorio de trabajo
+# 2. Crear un directorio de trabajo 
 
 Crea un directorio donde descargarás el repositorio del taller y el código fuente de CLASS-ulSFDM, ejemplo:
+
+**NOTA: ya creado en tutorial CLASS y Cobaya** 
 
 ```bash
 mkdir cosmobase
@@ -72,7 +74,7 @@ git clone https://github.com/JRomanHerrera/CLASS_Free_ulSFDM-workshop.git
 
 ---
 
-# 3. Crear el ambiente de Python
+# 3. Crear el ambiente de Python 
 
 Entra al directorio del taller:
 
@@ -81,6 +83,8 @@ cd CLASS_Free_ulSFDM-workshop
 ```
 
 Crea el ambiente de Conda:
+
+**NOTA: se puede usar el creado en tutorial CLASS y Cobaya `conda activate cosmobase`**
 
 ```bash
 conda env create -f environment.yml
