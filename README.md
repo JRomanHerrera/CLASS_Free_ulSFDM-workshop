@@ -368,6 +368,8 @@ La implementación de **free ulSFDM** utilizada en este taller está basada en u
 
 Si utiliza este código en trabajos de investigación, por favor cite tanto CLASS como la publicación asociada a esta implementación.
 
+- L. A. Ureña-López and F. X. Linares-Cedeño, *On the cosmological evolution of Scalar Field Dark Matter in the CLASS code*, **Phys. Rev. D 109, 023512 (2024)**. [arXiv:2307.05600](https://arxiv.org/abs/2307.05600) | [Phys. Rev. D 109, 023512](https://journals.aps.org/prd/abstract/10.1103/PhysRevD.109.023512)
+
 Repositorio de CLASS
 
 https://github.com/lesgourg/class_public
